@@ -41,7 +41,7 @@ test('getAllNotes returns all notes', async () => {
     expect(result).toEqual(mock_db.notes);
 });
 
-test('removeNote does nothing when is is not passed', async () => {
+test('removeNote does nothing when id is not passed', async () => {
     const mock_db = {
         notes: [
             { id: 1, content: 'Content 1', tags: ['tag1', 'tag2'] },
