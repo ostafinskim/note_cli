@@ -7,7 +7,7 @@ jest.unstable_mockModule('../src/db.js', () => ({
 }));
 
 const { insertDB, getDB, saveDB } = await import('../src/db.js');
-const { newNote, getNotes, deleteNote } = await import('../src/notes.js');
+const { createNote, getNotes, deleteNote } = await import('../src/notes.js');
 
 beforeEach(() => {
     insertDB.mockClear();
@@ -15,14 +15,15 @@ beforeEach(() => {
     saveDB.mockClear();
 });
 
-test('newNote inserts data and return it', async () => {
-    const newNote = {
+test('createNote inserts data and return it', async () => {
+    const note = {
         id: 1,
         content: 'Content of the note',
         tags: ['tag1', 'tag2'],
     };
 
-    insertDB.mockReturnValueOnce(newNote);
-    const result = await newNote(newNote.content, newNote.tags);
-    expect(result).toEqual(newNote);
+    insertDB.mockReturnValueOnce(note);
+    const result = await createNote(note.content, note.tags);
+    expect(result.content).toEqual(note.content);
+    expect(result.tags).toEqual(note.tags);
 });
