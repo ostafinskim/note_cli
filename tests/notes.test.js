@@ -27,3 +27,29 @@ test('createNote inserts data and return it', async () => {
     expect(result.content).toEqual(note.content);
     expect(result.tags).toEqual(note.tags);
 });
+
+test('getAllNotes returns all notes', async () => {
+    const mock_db = {
+        notes: [
+            { id: 1, content: 'Content 1', tags: ['tag1', 'tag2'] },
+            { id: 2, content: 'Content 2', tags: ['tag3', 'tag4'] },
+        ],
+    };
+
+    getDB.mockReturnValueOnce(mock_db);
+    const result = await getNotes();
+    expect(result).toEqual(mock_db.notes);
+});
+
+test('removeNote does nothing when is is not passed', async () => {
+    const mock_db = {
+        notes: [
+            { id: 1, content: 'Content 1', tags: ['tag1', 'tag2'] },
+            { id: 2, content: 'Content 2', tags: ['tag3', 'tag4'] },
+        ],
+    };
+
+    getDB.mockReturnValueOnce(mock_db);
+    await deleteNote();
+    expect(saveDB).not.toBeCalled();
+});
