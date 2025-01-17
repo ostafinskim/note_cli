@@ -1,4 +1,4 @@
-import { beforeEach, jest } from '@jest/globals';
+import { jest } from '@jest/globals';
 
 jest.unstable_mockModule('../src/db.js', () => ({
     insertDB: jest.fn(),
@@ -13,4 +13,16 @@ beforeEach(() => {
     insertDB.mockClear();
     getDB.mockClear();
     saveDB.mockClear();
+});
+
+test('newNote inserts data and return it', async () => {
+    const newNote = {
+        id: 1,
+        content: 'Content of the note',
+        tags: ['tag1', 'tag2'],
+    };
+
+    insertDB.mockReturnValueOnce(newNote);
+    const result = await newNote(newNote.content, newNote.tags);
+    expect(result).toEqual(newNote);
 });
