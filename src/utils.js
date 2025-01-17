@@ -1,5 +1,5 @@
 export const listNotes = (notes) => {
-    notes.forEach(note => {
+    notes.forEach((note) => {
         const { id, content, tags } = note;
         console.log(`
         {
@@ -9,4 +9,4 @@ export const listNotes = (notes) => {
         }\n    
         `);
     });
-}
+};
